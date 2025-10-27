@@ -1,0 +1,148 @@
+{
+  "workflow": "MTGJSON curation",
+  "records": [
+    {
+      "timestamp": "2025-10-27T14:22:16.448523Z",
+      "step": "download_allprintings",
+      "description": "Downloaded AllPrintings.json from MTGJSON",
+      "inputs": [
+        "https://mtgjson.com/api/v5/AllPrintings.json.zip"
+      ],
+      "outputs": [
+        "data/AllPrintings.json"
+      ],
+      "extra": null
+    },
+    {
+      "timestamp": "2025-10-27T14:22:22.742105Z",
+      "step": "download_allsets",
+      "description": "Downloaded AllSetFiles from MTGJSON",
+      "inputs": [
+        "https://mtgjson.com/api/v5/AllSetFiles.zip"
+      ],
+      "outputs": [
+        "data/*.json"
+      ],
+      "extra": "Includes all .json files except AllPrintings.json"
+    },
+    {
+      "timestamp": "2025-10-27T14:22:30.127325Z",
+      "step": "all_sets_dict",
+      "description": "Created a dictionary of all sets include only relevant set attributes",
+      "inputs": [
+        "data/*.json"
+      ],
+      "outputs": [
+        "sets dictionary"
+      ],
+      "extra": "Excluded AllSetFiles.zip, AllPrintings.json, and AllPrintings.json.zip from input"
+    },
+    {
+      "timestamp": "2025-10-27T14:22:30.662601Z",
+      "step": "set_code_list",
+      "description": "Created a list of set codes for Universe Beyond cards from MTG's Fandom.com wiki",
+      "inputs": [
+        "https://mtg.fandom.com/wiki/Universes_Beyond",
+        "sets dictionary"
+      ],
+      "outputs": [
+        "ip_to_set dictionary",
+        "ip_set_codes list"
+      ],
+      "extra": "Removed citation markers like [1], split multi-franchise names, and matched against MTG set names"
+    },
+    {
+      "timestamp": "2025-10-27T14:22:37.481092Z",
+      "step": "merge_set_metadata",
+      "description": "Merged set-level metadata into card data from AllPrintings.json to create a unified dataset",
+      "inputs": [
+        "data/AllPrintings.json",
+        "sets dictionary",
+        "ip_set_codes list"
+      ],
+      "outputs": [
+        "df (merged dataframe)"
+      ],
+      "extra": "Attached set name, type, releaseDate, and isUniversesBeyond flag fields to each card record"
+    },
+    {
+      "timestamp": "2025-10-27T14:22:38.616741Z",
+      "step": "coercing_data_types",
+      "description": "Ensured all columns are coerced to their respective types for easier future use",
+      "inputs": [
+        "df (merged dataframe)"
+      ],
+      "outputs": [
+        "df (cleaned, merged dataframe)"
+      ],
+      "extra": null
+    },
+    {
+      "timestamp": "2025-10-27T14:22:38.653748Z",
+      "step": "adding_cols",
+      "description": "Adding keywordCount, baseLevel, and isMulticolor",
+      "inputs": [
+        "df (cleaned, merged dataframe)"
+      ],
+      "outputs": [
+        "df (supplementary columns)"
+      ],
+      "extra": null
+    },
+    {
+      "timestamp": "2025-10-27T14:22:38.802270Z",
+      "step": "separate_dataframes",
+      "description": "Merged set metadata into every card and separated Universes Beyond vs non-UB cards using known ip_set_codes",
+      "inputs": [
+        "df (supplementary columns)"
+      ],
+      "outputs": [
+        "df_ub (Universe Beyond dataframe)",
+        "df_non_ub (non-Universe Beyond dataframe)"
+      ],
+      "extra": null
+    },
+    {
+      "timestamp": "2025-10-27T14:22:38.852806Z",
+      "step": "filter_dataframes",
+      "description": "Retain only potentially relevant columns",
+      "inputs": [
+        "df_ub (Universe Beyond dataframe)",
+        "df_non_ub (non-Universe Beyond dataframe)"
+      ],
+      "outputs": [
+        "df_ub (filtered Universe Beyond dataframe)",
+        "df_non_ub (filtered non-Universe Beyond dataframe)"
+      ],
+      "extra": null
+    },
+    {
+      "timestamp": "2025-10-27T14:22:39.130321Z",
+      "step": "data_cleaning",
+      "description": "Normalized important string fields",
+      "inputs": [
+        "df_ub (filtered Universe Beyond dataframe)",
+        "df_non_ub (filtered non-Universe Beyond dataframe)"
+      ],
+      "outputs": [
+        "df_ub (cleaned Universe Beyond dataframe)",
+        "df_non_ub (cleaned non-Universe Beyond dataframe)"
+      ],
+      "extra": null
+    },
+    {
+      "timestamp": "2025-10-27T14:22:39.704920Z",
+      "step": "export_csv",
+      "description": "Exported both dataframes to CSV for easier future use",
+      "inputs": [
+        "df_ub (cleaned Universe Beyond dataframe)",
+        "df_non_ub (cleaned non-Universe Beyond dataframe)"
+      ],
+      "outputs": [
+        "output/universes_beyond.csv",
+        "output/non_universes_beyond.csv"
+      ],
+      "extra": null
+    }
+  ]
+}
