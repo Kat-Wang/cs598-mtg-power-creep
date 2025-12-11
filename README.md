@@ -4,3 +4,5 @@ Data curation project on Magic: The Gathering to facilitate card analysis of pow
 Data folder holds downloaded MTGJSON data, but is excluded from Git tracking because of Git storage limitations.
 
 Instructions for replicating environment and running notebook in main.ipynb
+
+This project is licensed under the MIT License. See the `LICENSE` file for details.

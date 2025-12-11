@@ -1,0 +1,61 @@
+{
+  "@context": "https://schema.org",
+  "@type": "ResearchProject",
+  "name": "Magic: The Gathering Power Creep Dataset",
+  "description": "A curated dataset tracking card attributes and set membership across all Magic: The Gathering card printings. Designed for research on power creep.",
+  "creator": {
+    "@type": "Person",
+    "name": "Kate Wang"
+  },
+  "license": "https://opensource.org/license/mit",
+  "keywords": [
+    "Magic: The Gathering",
+    "TCG",
+    "power creep",
+    "game design",
+    "keywords",
+    "card mechanics"
+  ],
+  "datePublished": "2025-12-10",
+  "dateModified": "2025-12-10",
+  "url": "https://github.com/Kat-Wang/cs598-mtg-power-creep",
+  "isBasedOn": "https://mtgjson.com/downloads/all-files/",
+  "variableMeasured": [
+    {"@type": "PropertyValue", "name": "name", "description": "Printed name of the Magic: The Gathering card." },
+    {"@type": "PropertyValue", "name": "type", "description": "Full type line including supertypes, types, and subtypes." },
+    {"@type": "PropertyValue", "name": "rarity", "description": "Rarity classification of the card (e.g., common, uncommon, rare, mythic)." },
+    {"@type": "PropertyValue", "name": "setName", "description": "Full name of the Magic: The Gathering expansion set containing this card printing." },
+    {"@type": "PropertyValue", "name": "setCode", "description": "Three- or four-letter identifier for the set this card belongs to." },
+    {"@type": "PropertyValue", "name": "isUniversesBeyond", "description": "Boolean flag indicating whether the card belongs to the Universes Beyond product line." },
+    {"@type": "PropertyValue", "name": "releaseDate", "description": "Official release date of the card's printing in YYYY-MM-DD format." },
+    {"@type": "PropertyValue", "name": "year", "description": "Release year extracted from the card's release date." },
+    {"@type": "PropertyValue", "name": "keywords", "description": "List of keyword abilities present in the card's rules text." },
+    {"@type": "PropertyValue", "name": "keywordCount", "description": "Number of keyword abilities found on the card." },
+    {"@type": "PropertyValue", "name": "manaValue", "description": "Converted mana cost (CMC) of the card as a numeric value." },
+    {"@type": "PropertyValue", "name": "power", "description": "Printed power value for creature cards; may be numeric or symbolic (*) depending on the design." },
+    {"@type": "PropertyValue", "name": "toughness", "description": "Printed toughness value for creature cards; may be numeric or symbolic (*)." },
+    {"@type": "PropertyValue", "name": "coreStats", "description": "Computed aggregate measure combining mana value, power, and toughness to approximate baseline card strength." },
+    {"@type": "PropertyValue", "name": "defense", "description": "Defense value used by Battle cards, Planeswalkers, or other designs with defensive stats." },
+    {"@type": "PropertyValue", "name": "colors", "description": "List of color identities associated with the card, represented as one or more of W, U, B, R, G." },
+    {"@type": "PropertyValue", "name": "isMulticolor", "description": "Boolean flag indicating whether the card has more than one color." },
+    {"@type": "PropertyValue", "name": "text", "description": "Main text on the card describing abilities and effects." },
+    {"@type": "PropertyValue", "name": "commanderLegal", "description": "Boolean indicating whether the card is legal for use in the Commander format." },
+    {"@type": "PropertyValue", "name": "edhrecRank", "description": "Popularity ranking from EDHREC, indicating how frequently the card appears in Commander decklists." }
+  ],
+  "distribution": [
+    {
+      "@type": "DataDownload",
+      "name": "Universes Beyond dataset (cleaned)",
+      "encodingFormat": "text/csv",
+      "contentUrl": "output/universes_beyond.csv",
+      "description": "Cleaned Universe Beyond card data exported using df_ub.to_csv()."
+    },
+    {
+      "@type": "DataDownload",
+      "name": "Non-Universes Beyond dataset (cleaned)",
+      "encodingFormat": "text/csv",
+      "contentUrl": "output/non_universes_beyond.csv",
+      "description": "Cleaned non-UB card data exported using df_non_ub.to_csv()."
+    }
+  ]
+}
